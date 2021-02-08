@@ -26,8 +26,19 @@
 
 <script>
     var callAPI = ()=>{
+      // instantiate a headers object
+      var myHeaders = new Headers();
+      // add content type header to object
+      myHeaders.append("Content-Type", "application/json");
+      var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+      };
+
       var apiUrl = 'https://domj6xifp0.execute-api.us-west-2.amazonaws.com/dev';
-      fetch(apiUrl).then(response => {
+      fetch(apiUrl, requestOptions).then(response => {
       return response.body();
     })};
 </script>
