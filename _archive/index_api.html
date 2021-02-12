@@ -27,8 +27,8 @@
         margin-left: 30px;
         }
     #divMain {
-        height:200px;
-        width:380px;
+        height:300px;
+        width:500px;
         border: 1px solid black;
     }
     </style>
@@ -36,28 +36,30 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=0.5">
 <script>
-  function make_prsc() {
-    rd = Math.floor(Math.random() * 4);
-    var disc = ['putter', 'midrange', 'fairway driver', 'distance driver'][rd];
-    ra = Math.floor(Math.random() * 3);
-    var angle = ['hyzer', 'flat', 'anhyzer'][ra];
-    rb = Math.floor(Math.random() * 2);
-    var bhfh = ['backhand', 'forehand'][rb];
+    var callAPI = ()=>{
+      // instantiate a headers object
+      var myHeaders = new Headers();
+      // add content type header to object
+      myHeaders.append("Content-Type", "application/json");
+      var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          redirect: 'follow'
+      };
 
-    result  = "I recommend throwing a: <br><b>" + disc + "</b> on <b>" + angle + "</b> with a <b>" + bhfh + "</b>.";
-
-    document.getElementById("prsc").innerHTML = result;
-    console.log(rd,ra,rb)
-    return result;
-  }
-
+      // make API call with parameters and use promises to get response
+      fetch(" https://domj6xifp0.execute-api.us-west-2.amazonaws.com/dev", requestOptions)
+        .then(response => response.text())
+        .then(result => alert(JSON.parse(result).body))
+        .catch(error => console.log('error', error));
+      console.log(Math.floor(Math.random() * 4 + 1))
+    }
 </script>
 
 <body>
     <div id="divMain">
       <h2>Welcome to Dr. Bad Shot.</h2>
-      <button type="button" onclick="make_prsc()">Get Prescription</button>
-      <p id="prsc"></p>
+      <button type="button" onclick="callAPI()">Get Prescription</button>
     </div>
 </body>
 
