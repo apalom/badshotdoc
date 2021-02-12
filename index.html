@@ -21,10 +21,9 @@
         font-size: 18px;
         margin-left: 30px;
         }
-    #div1 {
+    #divMain {
         height:300px;
-        width:80px;
-        overflow-y:scroll;
+        width:500px;
         border: 1px solid black;
     }
     </style>
@@ -44,17 +43,19 @@
       };
 
       // make API call with parameters and use promises to get response
-      fetch(" https://domj6xifp0.execute-api.us-west-2.amazonaws.com/dev", requestOptions)
+      let promise = fetch(" https://domj6xifp0.execute-api.us-west-2.amazonaws.com/dev", requestOptions)
       .then(response => response.text())
       .then(result => alert(JSON.parse(result).body))
       .catch(error => console.log('error', error));
     }
+    document.getElementById("prsc").innerHTML = promise;
 </script>
 
 <body>
     <div id="divMain">
       <h2>Welcome to Dr. Bad Shot.</h2>
       <button type="button" onclick="callAPI()">Get Prescription</button>
+      <p id="prsc"></p>
     </div>
 </body>
 
